@@ -1,5 +1,7 @@
 2009-04-12 Jochen Rieger <j.rieger@connecta.ag>
 
+    * set version to 0.5.0
+    * added keywords to manual
 	* added manual
 	* set state to BETA
 	* fixed count bug (http's in normal text have been counted too)
