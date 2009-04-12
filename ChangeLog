@@ -1,0 +1,11 @@
+07-11-23 0.1.3 Philipp Mueller  <pmueller@juhui.ch>
+
+	* Added "deleted=0" to where-querys
+
+	* Fixed ext_emconf.php -> TYPO3 4.x compatibility
+
+	* Use t3lib_iconWorks to display the edit-icon (use t3skin...)
+
+05-11-21 0.1.2 Jochen Rieger  <j.rieger@connecta.ag>
+
+	* Initial release
