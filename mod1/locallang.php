@@ -24,6 +24,7 @@ $LOCAL_LANG = Array (
 		'list.tableHead.path' => 'Path',
 		'list.tableHead.headline' => 'Headline',
 		'list.tableHead.linktarget' => 'Link target',
+		'list.tableHead.linkmessage' => 'Message',
 	),
 	'dk' => Array (
 	),
@@ -45,6 +46,7 @@ $LOCAL_LANG = Array (
 		'list.tableHead.path' => 'Pfad',
 		'list.tableHead.headline' => 'Überschrift',
 		'list.tableHead.linktarget' => 'Linkziel',
+		'list.tableHead.linkmessage' => 'Meldung',
 	),
 	'no' => Array (
 	),
@@ -70,6 +72,7 @@ $LOCAL_LANG = Array (
 		'list.tableHead.path' => 'Camino',
 		'list.tableHead.headline' => 'encabezado',
 		'list.tableHead.linktarget' => 'Destino del enlace',
+		'list.tableHead.linkmessage' => 'Memsaje',
 	),
 	'nl' => Array (
 	),

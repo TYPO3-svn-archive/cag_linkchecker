@@ -1,9 +1,24 @@
+2009-04-12 Jochen Rieger <j.rieger@connecta.ag>
+
+	* added manual
+	* set state to BETA
+	* fixed count bug (http's in normal text have been counted too)
+	* little code cleanup
+
+2009-03-16 Philipp Mueller <pmueller@juhui.ch>
+
+	* compatibility: usable without curl (see checkURL() in mod1)
+
+2009-03-14 Jonas Duebi <jd@cabag.ch>
+
+	* files from fileadmin/ and uploads/ are also checked now
+	* merged the two table render functions which where copy paste...
+	* rewrite of checkURL function with curl - faster and more reliable
+
 07-11-23 0.1.3 Philipp Mueller  <pmueller@juhui.ch>
 
 	* Added "deleted=0" to where-querys
-
 	* Fixed ext_emconf.php -> TYPO3 4.x compatibility
-
 	* Use t3lib_iconWorks to display the edit-icon (use t3skin...)
 
 05-11-21 0.1.2 Jochen Rieger  <j.rieger@connecta.ag>
