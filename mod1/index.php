@@ -210,7 +210,8 @@ class tx_caglinkchecker_module1 extends t3lib_SCbase {
 	}
 
 	function showBrokenLinksTableFromBranch($pidList, $table = 'tt_content') {
-		global $LANG;
+		$content = $this->startTable();
+		$switch = true;
 
 		// Where statement for database query
 		if ($pidList != '') {
@@ -218,39 +219,52 @@ class tx_caglinkchecker_module1 extends t3lib_SCbase {
 		}
 		$where.= $this->linkWhere;
 
-		// Select records that contain external links
+		// Select content elements that contain external links
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, pid, header, bodytext',$table,$where);
+		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			// Extract external links from bodytext into array $urls
+			$urls = array();
+			preg_match_all('/((?:http|https|ftp|ftps))(?::\/\/)(?:[^\s<>]+)/i', $row['bodytext'], $urls, PREG_PATTERN_ORDER);
 
-		return $this->checkUrlsAndRenderTable($res, $table);
+			for ($i = 0; $i < sizeof($urls[0]); ++$i) {
+				$checkURL = $this->checkURL($urls[0][$i]);
+				if ($checkURL != 1) {
+					$content .= $this->getRow($row['uid'], $row['pid'], $row['header'], $urls[0][$i], $checkURL, $table, $switch);
+				}
+			}
+		}
+
+		// external page links
+		if ($pidList != '') {
+			$where = 'uid IN ('.$pidList.') AND ';
+		}
+		$where .= 'doktype = 3 && urltype != 3';
+
+		// Select pages which are linking to external pages
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, pid, title, url, urltype', 'pages', $where);
+		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			if ($row['urltype'] == 1) {
+				$row['url'] = 'http://' . $row['url'];
+			} elseif ($row['urltype'] == 2) {
+				$row['url'] = 'ftp://' . $row['url'];
+			} elseif ($row['urltype'] == 4) {
+				$row['url'] = 'https://' . $row['url'];
+			}
+
+			$checkURL = $this->checkURL($row['url']);
+			if ($checkURL != 1) {
+				$content .= $this->getRow($row['uid'], $row['pid'], $row['title'], $row['url'], $checkURL, 'pages', $switch);
+			}
+		}
+
+		return $content;
 	}
 
-	/**
-	 * fetches the records from the db and calls
-	 */
-	function showBrokenLinksTable($table = 'tt_content') {
-
-		// Select records that contain external links
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, pid, header, bodytext', $table, $this->linkWhere);
-
-		return $this->checkUrlsAndRenderTable($res, $table);
-	}
-
-	/**
-	 * checks the urls from res and renders the table
-	 */
-	function checkUrlsAndRenderTable($res, $table) {
+	function startTable() {
 		global $LANG;
 
-		// The array to put the table content into
-		$html = array();
-		// Array where to store cObjects
-		$cObject = array();
-		// Array where to store the external URLs
-		$urls = array();
-		// Switch for alternating table colors
-		$switch = true;
-
 		// Listing head
+		$html = array();
 		$html[] = $this->doc->sectionHeader($LANG->getLL('list.header'));
 		$html[] = $this->doc->spacer(5);
 		$html[] = '<table id="brokenLinksList" border="0" width="100%" cellspacing="1" cellpadding="3" align="center" bgcolor="' . $this->doc->bgColor2 . '">';
@@ -262,53 +276,33 @@ class tx_caglinkchecker_module1 extends t3lib_SCbase {
 		$html[] = '<td class="head" align="center"></td>';
 		$html[] = '</tr>';
 
-		// Get record rows
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+		return implode(chr(10), $html);
+	}
 
-			// Extract external links from bodytext into array $urls
-			preg_match_all("/((?:http|https))(?::\/\/)(?:[^\s<>]+)/i",$row['bodytext'],$urls, PREG_PATTERN_ORDER);
+	function getRow($uid, $pid, $header, $url, $response, $table, &$switch) {
+		$html = array();
+		$params = '&edit['.$table.']['.$uid.']=edit';
+		$actionLinks = '<a href="#" onclick="'.t3lib_BEfunc::editOnClick($params,$GLOBALS['BACK_PATH'],'').'"><img'.t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'],'gfx/edit2.gif','width="11" height="12"').' title="edit" alt="edit" /></a>';
 
-			// Check external links for validity
-			for ($i = 0; $i < sizeof($urls[0]); $i++) {
-				$checkURL = $this->checkURL($urls[0][$i]);
-				// If link is broken a text is returned, else 1
-				if ($checkURL == 1) {
-					// url is ok
-				} else {
+		//Alternating row colors
+         if ($switch == true){
+             $switch = false;
+             $html[] = '<tr bgcolor="'.$this->doc->bgColor3.'">';
+         } elseif($switch == false){
+              $switch = true;
+              $html[] = '<tr bgcolor="'.$this->doc->bgColor5.'">';
+   		 }
 
-					$params = '&edit['.$table.']['.$row['uid'].']=edit';
-					$actionLinks = '<a href="#" onclick="'.t3lib_BEfunc::editOnClick($params,$GLOBALS['BACK_PATH'],'').'"><img'.t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'],'gfx/edit2.gif','width="11" height="12"').' title="edit" alt="edit" /></a>';
-
-					//Alternating row colors
-		            if ($switch == true){
-		                $switch = false;
-		                $html[] = '<tr bgcolor="'.$this->doc->bgColor3.'">';
-		            }
-		            elseif($switch == false){
-		                $switch = true;
-		                $html[] = '<tr bgcolor="'.$this->doc->bgColor5.'">';
-            		}
-
-					$html[] = '<td class="content">'.t3lib_BEfunc::getRecordPath($row['pid'],'',0,0).'</td>';
-					$html[] = '<td class="content">'.$row['header'].'</td>';
-					$html[] = '<td class="content"><a href="'.$urls[0][$i].'" target="_blank">'.$urls[0][$i].'</a></td>';
-					$html[] = '<td class="content">'.$checkURL.'</td>';
-					$html[] = '<td class="content">'.$actionLinks.'</td>';
-					$html[] = '</tr>';
-
-				} // end if (@fopen...)
-
-			} // end for ($i = 0;...
-
-		} // end while ($row = $GLOBALS['TYPO3_DB']...
-
+		$html[] = '<td class="content">'.t3lib_BEfunc::getRecordPath($pid,'',0,0).'</td>';
+		$html[] = '<td class="content">'.$header.'</td>';
+		$html[] = '<td class="content"><a href="'.$url.'" target="_blank">'.$url.'</a></td>';
+		$html[] = '<td class="content">'.$response.'</td>';
+		$html[] = '<td class="content">'.$actionLinks.'</td>';
+		$html[] = '</tr>';
 
 		// Return the table html code as string
 		return implode(chr(10),$html);
-
-	} // end function showBrokenLinksTable()
-
-
+	}
 
 	function getAmountOfRecWithExtLinks($pidList = '', $table = 'tt_content') {
 
@@ -352,7 +346,7 @@ class tx_caglinkchecker_module1 extends t3lib_SCbase {
 		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 
 			// Extract external links from bodytext into array $urls
-			preg_match_all("/(?:<link http|< link https)(?::\/\/)(?:[^\s<>]+)/i", $row['bodytext'], $urls, PREG_PATTERN_ORDER);
+			preg_match_all("/(?:<link http|<link https)(?::\/\/)(?:[^\s<>]+)/i", $row['bodytext'], $urls, PREG_PATTERN_ORDER);
 
 			// Add amount of links in cObj
 			$links+= sizeof($urls[0]);
@@ -413,92 +407,25 @@ class tx_caglinkchecker_module1 extends t3lib_SCbase {
 	 * Checks a given URL + /path/filename.ext for validity
 	 *
 	 * @param	string		complete URL - Example: 'http://www.domain.com/...'
-	 * @param	integer		port
-	 * @param	integer		timeout for fsockopen
-	 * @return	boolean		true / false
+	 * @return	int|string		1 if anything went well or an error message
 	 */
-	function checkURL($url, $port = 80, $timeout = 2) {
-		
-		if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlUse']) {
-			
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_HEADER, true);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($ch, CURLOPT_MAXREDIRS, 10); //follow up to 10 redirections - avoids loops
-			curl_setopt($ch, CURLOPT_TIMEOUT, 2);
-			$data = curl_exec($ch);
-			curl_close($ch);
-			preg_match_all("/HTTP\/1\.[1|0]\s(\d{3})/",$data,$matches);
-			$code = end($matches[1]);
-
-			if (intval($code) < 400 && intval($code) > 10) {
-				// If path + filename exists
-				return 1;
-			} else {
-				return substr($data, 0, 100) . '...';
-			}
-			
-		} else {
-			
-			// Init vars
-			$errno = '';
-			$errstr = '';
-			$path = '';
-
-			// Get parts of URL
-			$urlparts = parse_url($url);
-
-			// Host adress (without http://)
-			#$addr = $urlparts['scheme'].'://'.$urlparts['host'];
-			$addr = $urlparts['host'];
-
-			// Path / filename + params + anchor
-			if (strlen($urlparts['path']) > 1) {
-				$path.= $urlparts['path'];
-			}
-			if (strlen($urlparts['query']) > 1) {
-				$path.= '?'.$urlparts['query'];
-			}
-			if (strlen($urlparts['fragment']) > 1) {
-				$path.= '#'.$urlparts['fragment'];
-			}
-
-			// Check adress for validity
-			$urlHandle = @fsockopen($addr, $port, $errno, $errstr, $timeout);
-
-			if ($urlHandle) {
-				socket_set_timeout($urlHandle, $timeout);
-				if ($path != '') {
-					$urlString = "GET $path HTTP/1.0\r\nHost: $addr\r\nConnection: Keep-Alive\r\nUser-Agent: MyURLGrabber\r\n";
-					$urlString .= "\r\n";
-
-					fputs($urlHandle, $urlString);
-
-					$response = fgets($urlHandle);
-
-					if (substr_count($response, "200 OK") > 0) {
-						// If path + filename exists
-						return 1;
-					} else {
-						// If path + filename doesn't exist
-						fclose($urlHandle);
-						return 0;
-					}
-
-				} else {
-					// No path but urlHandle ok
-					return 1;
-				}
-			} else {
-				// urlHandle (fsockopen) == false
-				return 0;
-			}
+	function checkURL($url) {
+		// remove possible anchor from the url
+		if (strrpos($url, '#') !== false) {
+			$url = substr($url, 0, strrpos($url, '#'));
 		}
-	} // end function checkURL(...)
 
+		// try to fetch the content of the URL (just fetching of headers doesn't work!)
+		$report = array();
+		t3lib_div::getURL($url, 1, false, $report);
+
+		// analyze the response
+		if ($report['error']) {
+			return $report['lib'] . ': (' . $report['error'] . ') ' . $report['message'];
+		}
+
+		return 1;
+	}
 } // end class
 
 

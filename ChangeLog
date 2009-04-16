@@ -1,7 +1,15 @@
+2009-04-16 Jochen Rieger <j.rieger@connecta.ag>
+		
+	* big thanks to Stefan Galinski for his improvements... as follows
+	* checkURL now working with TYPO3 API method t3lib_div::getUrl()
+	* added support for ftp/ftps links as well as page type "External URL"
+	* table method refactored
+	* anchor problem fixed
+
 2009-04-12 Jochen Rieger <j.rieger@connecta.ag>
 
-    * set version to 0.5.0
-    * added keywords to manual
+	* set version to 0.5.0
+	* added keywords to manual
 	* added manual
 	* set state to BETA
 	* fixed count bug (http's in normal text have been counted too)
