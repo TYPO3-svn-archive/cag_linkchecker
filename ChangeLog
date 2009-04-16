@@ -1,5 +1,6 @@
 2009-04-16 Jochen Rieger <j.rieger@connecta.ag>
-		
+
+    * updated manual
 	* big thanks to Stefan Galinski for his improvements... as follows
 	* checkURL now working with TYPO3 API method t3lib_div::getUrl()
 	* added support for ftp/ftps links as well as page type "External URL"
