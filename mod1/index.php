@@ -56,7 +56,7 @@ class tx_caglinkchecker_module1 extends t3lib_SCbase {
 	function init()	{
 		global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 
-		$this->pid = t3lib_div::_GP('id');
+		$this->pid = t3lib_div::_GP('id') > 0 ? t3lib_div::_GP('id') : 0;
 
 		parent::init();
 
