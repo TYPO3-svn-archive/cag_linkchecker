@@ -1,5 +1,35 @@
+2009-12-09 Jochen Rieger <j.rieger@connecta.ag>
+    * set version to 1.0.0 due to major changes - special thanks to Dimitri!
+    * improved manual
+    * removed dependency on rtehtmlarea
+    * changed some locallang labels
+
+2009-12-09 Dimitri König <dk@cabag.ch>
+    * version 0.6.5
+    * added "show all links" feature
+    * added aoe linkhandler checking
+
+2009-11-16 Dimitri König <dk@cabag.ch>
+    * version 0.6.4
+    * hook added for loading external language file
+
+2009-11-16 Dimitri König <dk@cabag.ch>
+    * version 0.6.3
+    * changed checking methods -> now ref index update mechanism is used for fetching links
+
+2009-11-11 Dimitri König <dk@cabag.ch>
+    * version 0.6.2
+    * changed checking methods
+    * externalized checking mechanism
+    * added checking of internal pages
+
+2009-10-24 Jochen Rieger <j.rieger@connecta.ag>
+    * set version to 0.6.1
+    * bugfix if no page selected
+
 2009-04-16 Jochen Rieger <j.rieger@connecta.ag>
 
+    * set version to 0.6.0
     * updated manual
 	* big thanks to Stefan Galinski for his improvements... as follows
 	* checkURL now working with TYPO3 API method t3lib_div::getUrl()
