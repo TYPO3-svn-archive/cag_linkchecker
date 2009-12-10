@@ -27,7 +27,7 @@
             <label index="list.tableHead.path">Path</label>
             <label index="list.tableHead.type">Type</label>
             <label index="list.tableHead.headline">Title</label>
-            <label index="list.tableHead.linktarget">URL</label>
+            <label index="list.tableHead.linktarget">URL / Link Target</label>
             <label index="list.tableHead.linkmessage">Response</label>
             <label index="list.report.pagedeleted">Page deleted</label>
             <label index="list.report.pagenotexisting">Page '###title###' doesn't exist</label>
@@ -61,7 +61,7 @@
             <label index="list.tableHead.path">Pfad</label>
             <label index="list.tableHead.type">Typ</label>
             <label index="list.tableHead.headline">Titel</label>
-            <label index="list.tableHead.linktarget">URL</label>
+            <label index="list.tableHead.linktarget">URL / Linkziel</label>
             <label index="list.tableHead.linkmessage">Antwort</label>
             <label index="list.report.pagedeleted">Interne Seite '###title###' gelöscht</label>
             <label index="list.report.pagenotexisting">Interne Seite existiert nicht</label>
