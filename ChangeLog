@@ -1,5 +1,6 @@
 2009-12-10 Jochen Rieger <j.rieger@connecta.ag>
     * version 1.0.1
+    * removed index_old.php
     * imroved ext description and manual
 
 2009-12-09 Jochen Rieger <j.rieger@connecta.ag>
