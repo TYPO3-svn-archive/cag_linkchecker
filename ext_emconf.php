@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Linkchecker',
-	'description' => 'A backend module that lets you check your external links for validity. Originally developed for Connecta AG, Wiesbaden.',
+	'description' => 'A backend module that checks all kinds of links on your website for validity. Originally developed for Connecta AG, Wiesbaden.',
 	'category' => 'module',
 	'shy' => 0,
 	'version' => '1.0.0',
