@@ -73,4 +73,9 @@ class tx_caglinkchecker_checklinkhandlerlinks {
 	}
 }
 
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_linkchecker/lib/class.tx_caglinkchecker_checklinkhandlerlinks.php'])  {
+        include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_linkchecker/lib/class.tx_caglinkchecker_checklinkhandlerlinks.php']);
+}
+
 ?>
