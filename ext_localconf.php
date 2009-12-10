@@ -11,9 +11,4 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cag_linkchecker']['checkLinks']['file'] 
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cag_linkchecker']['checkLinks']['external'] = 'EXT:cag_linkchecker/lib/class.tx_caglinkchecker_checkexternallinks.php:tx_caglinkchecker_checkexternallinks';
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cag_linkchecker']['checkLinks']['linkhandler'] = 'EXT:cag_linkchecker/lib/class.tx_caglinkchecker_checklinkhandlerlinks.php:tx_caglinkchecker_checklinkhandlerlinks';
 
-/*
-if ($_EXTCONF['setUserTSconfig']) {
-	t3lib_extMgm::addUserTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:###extension_key###/userTSconfig.txt">');
-}
-*/
 ?>

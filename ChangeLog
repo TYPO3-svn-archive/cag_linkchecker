@@ -1,5 +1,7 @@
 2009-12-10 Jochen Rieger <j.rieger@connecta.ag>
     * version 1.0.1
+    * registered mod in ext_emconf to remove warning in ext manager
+    * code cleanup in ext config files
     * removed index_old.php
     * imroved ext description and manual
 
