@@ -1,3 +1,8 @@
+2010-09-16 Jochen Rieger <j.rieger@connecta.ag> 
+    * version 1.0.2
+    * added italian translation
+    * fixed bugs #9773, #9749
+
 2009-12-10 Jochen Rieger <j.rieger@connecta.ag>
     * version 1.0.1
     * removed old locallang.php files
