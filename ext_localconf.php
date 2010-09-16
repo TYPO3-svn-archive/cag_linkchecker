@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$_EXTCONF = unserialize($_EXTCONF);	// unserializing the configuration so we can use it here:
-if ($_EXTCONF['setPageTSconfig'])	{
+$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['cag_linkchecker']);
+if ($extConf['setPageTSconfig'])	{
 	t3lib_extMgm::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:cag_linkchecker/res/pageTSconfig.txt">');
 }
 
