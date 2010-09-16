@@ -1,7 +1,7 @@
 2010-09-16 Jochen Rieger <j.rieger@connecta.ag> 
     * version 1.0.2
-    * added italian translation
-    * fixed bugs #9773, #9749
+    * added italian translation - Thanks to Claudio Strizzolo
+    * fixed bugs #9773, #9749 - Thanks to Simon Schaufelberger for reporting!
 
 2009-12-10 Jochen Rieger <j.rieger@connecta.ag>
     * version 1.0.1
