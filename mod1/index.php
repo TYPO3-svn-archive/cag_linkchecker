@@ -124,14 +124,20 @@ class tx_caglinkchecker_module1 extends t3lib_SCbase {
 		}
 
 		// get the searchFields from TypoScript
-		foreach ($modTS['searchFields.'] as $table => $fieldList) {
-			$fields = t3lib_div::trimExplode(',', $fieldList);
-			foreach ($fields as $field) {
-				if(array_search($field, $this->searchFields[$table]) === FALSE) {
-					$this->searchFields[$table][] = $field;
-				}
-			}
-		}
+        if (is_array($modTS['searchFields.'])) {
+            foreach ($modTS['searchFields.'] as $table => $fieldList) {
+                $fields = t3lib_div::trimExplode(',', $fieldList);
+                foreach ($fields as $field) {
+                    if (array_key_exists($table, $this->searchFields)) { 
+                        if(array_search($field, $this->searchFields[$table]) === FALSE) {
+                            $this->searchFields[$table][] = $field;
+                        }
+                    } else {
+                        $this->searchFields[$table][] = $field;
+                    }
+                }
+            }
+        }
 
 		$this->pidList = $this->getPidList($this->id);
 		
