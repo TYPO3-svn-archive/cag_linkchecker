@@ -76,5 +76,39 @@
             <label index="hooks.external">Externe Links</label>
             <label index="hooks.linkhandler">Linkhandler Links</label>
         </languageKey>
+        <languageKey index="it" type="array">
+            <label index="title">Verifica link</label>
+            <label index="start">Panoramica</label>
+            <label index="menu.introduction">Introduzione</label>
+            <label index="menu.checkLinks">Verifica la validità dei link</label>
+            <label index="menu.overview">Panoramica dei link nel sito</label>
+            <label index="overview.header">Panoramica - scegli le opzioni per la verifica dei links</label>
+            <label index="overview.all.header">Totale in tt_content</label>
+            <label index="overview.all.records">Record con link esterni: </label>
+            <label index="overview.all.links">Link esterni: </label>
+            <label index="overview.branch.header">Totale per il ramo corrente tt_content</label>
+            <label index="overview.branch.records">Record con link esterni: </label>
+            <label index="overview.branch.links">Link esterni: </label>
+            <label index="overview.attention.header">Attenzione: </label>
+            <label index="overview.attention.text">Il controllo dei link potrebbe durare alcuni minuti. Controllare UN link può impiegare fino a 3 secondi.</label>
+            <label index="list.header">Elenco dei link non funzionanti</label>
+            <label index="list.tableHead.path">Percorso</label>
+            <label index="list.tableHead.type">Tipo</label>
+            <label index="list.tableHead.headline">Titolo</label>
+            <label index="list.tableHead.linktarget">URL / Obiettivo del link</label>
+            <label index="list.tableHead.linkmessage">Responso</label>
+            <label index="list.report.pagedeleted">Pagina cancellata</label>
+            <label index="list.report.pagenotexisting">La pagina '###title###' non esiste</label>
+            <label index="list.report.rowdeleted">Linea ###title### cancellata</label>
+            <label index="list.report.rownotexisting">La linea ###title### non esiste</label>
+            <label index="list.report.noresponse">Link esterno non raggiungibile</label>
+            <label index="list.report.filenotexisting">Il file non esiste</label>
+            <label index="label_send">Verifica i link</label>
+            <label index="label_showalllinks">Mostra tutti i link (inclusi quelli funzionanti)</label>
+            <label index="hooks.db">Link interni</label>
+            <label index="hooks.file">Link a files</label>
+            <label index="hooks.external">Link esterni</label>
+            <label index="hooks.linkhandler">Linkhandler Links</label>
+        </languageKey>
     </data>
 </T3locallang>

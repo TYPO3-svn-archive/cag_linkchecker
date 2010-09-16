@@ -18,6 +18,11 @@
             <label index="mlang_labels_tabdescr">Links Ihrer Website auf Validität überprüfen</label>
             <label index="mlang_labels_tablabel">Links überprüfen</label>
         </languageKey>
+        <languageKey index="it" type="array">
+            <label index="mlang_tabs_tab">Verifica link</label>
+            <label index="mlang_labels_tabdescr">Verifica la validità dei link presenti nel sito</label>
+            <label index="mlang_labels_tablabel">Verifica link</label>
+        </languageKey>
     </data>
     <orig_hash type="array">
         <languageKey index="default" type="array">

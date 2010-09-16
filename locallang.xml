@@ -16,9 +16,10 @@
         <languageKey index="de" type="array">
             <label index="cm1_title">Links überprüfen</label>
         </languageKey>
-        <languageKey index="no" type="array">
-        </languageKey>
         <languageKey index="it" type="array">
+            <label index="cm1_title">Verifica link</label>
+        </languageKey>
+        <languageKey index="no" type="array">
         </languageKey>
         <languageKey index="fr" type="array">
         </languageKey>
