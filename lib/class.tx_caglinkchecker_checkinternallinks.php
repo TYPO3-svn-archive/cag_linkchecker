@@ -25,6 +25,7 @@
  * 'Check Internal Links' for the 'cag_linkchecker' extension.
  *
  * @author	Dimitri König <dk@cabag.ch>
+ * @author	Jochen Rieger <j.rieger@connecta.ag>
  */
 
 class tx_caglinkchecker_checkinternallinks {
