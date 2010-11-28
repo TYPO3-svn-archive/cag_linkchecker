@@ -1,4 +1,10 @@
 2010-09-16 Jochen Rieger <j.rieger@connecta.ag> 
+    * version 1.0.3
+    * fixed bugs #9775, #9776, #9789
+    * added locallang label support for tt_content links
+    * added locallang label support for tx_dam links - Thanks to Simon Lang
+
+2010-09-16 Jochen Rieger <j.rieger@connecta.ag> 
     * version 1.0.2
     * added italian translation - Thanks to Claudio Strizzolo
     * fixed bugs #9773, #9749 - Thanks to Simon Schaufelberger for reporting!
